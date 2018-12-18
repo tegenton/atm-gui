@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
 
 import controller.ViewManager;
 
@@ -13,6 +16,27 @@ import controller.ViewManager;
 public class CreateView extends JPanel implements ActionListener {
 	
 	private ViewManager manager;		// manages interactions between the views, model, and database
+	private JTextField fnameField;
+	private JTextField lnameField;
+	private JSpinner.DateEditor dobPicker; // date of birth
+	private JTextField phoneField; // TODO: make this formatted OR (this should be separated into the 3 segments of a phone number)
+	private JTextField addressField; // TODO: formatting 
+	private JPasswordField pinField;	// desired pin
+	/*
+	 * a textbox to enter his or her first name
+a textbox to enter his or her last name
+a date picker to select his or her date of birth
+a textbox to enter his or her phone number
+this should be separated into the 3 segments of a phone number
+a textbox to enter his or her street address
+a textbox to enter his or her city
+a dropdown menu to select his or her state
+a textbox to enter his or her postal code
+a textbox to enter his or her desired PIN
+this should be masked (much like a typical password field in a mobile/web application)
+a button to create the account
+a button to cancel and return to the LoginView
+	 */
 	
 	/**
 	 * Constructs an instance (or object) of the CreateView class.

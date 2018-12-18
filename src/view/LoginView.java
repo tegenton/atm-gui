@@ -115,7 +115,7 @@ public class LoginView extends JPanel implements ActionListener {
 		
 		pinField.addKeyListener(new KeyAdapter() {
 		    public void keyTyped(KeyEvent e) { 
-		        if (pinField.getPassword().length > 4) // limit pin to 4 characters
+		        if (pinField.getPassword().length >= 4) // limit pin to 4 characters
 		            e.consume(); 
 		    }  
 		});
