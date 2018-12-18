@@ -7,6 +7,8 @@ import java.io.ObjectOutputStream;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 
 import controller.ViewManager;
 
@@ -102,11 +104,11 @@ public class ATM extends JFrame {
 					 * You'll need to add the required import statements for it to compile.
 					 */
 					
-//					for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-//						if (info.getName().equals("Nimbus")) {
-//							UIManager.setLookAndFeel(laf.getClassName());
-//						}
-//					}
+					for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+						if (info.getName().equals("Nimbus")) {
+							UIManager.setLookAndFeel(info.getClassName());
+						}
+					}
 					
 					new ATM().initialize();
 				} catch (Exception e) {

@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -87,6 +89,13 @@ public class LoginView extends JPanel implements ActionListener {
 		accountField = new JTextField(20);
 		accountField.setBounds(205, 100, 200, 35);
 		
+		accountField.addKeyListener(new KeyAdapter() {
+		    public void keyTyped(KeyEvent e) { 
+		        if (accountField.getText().length() >= 9) // limit account number to 9 characters
+		            e.consume(); 
+		    }  
+		});
+		
 		this.add(label);
 		this.add(accountField);
 	}
@@ -103,6 +112,13 @@ public class LoginView extends JPanel implements ActionListener {
 		
 		pinField = new JPasswordField(20);
 		pinField.setBounds(205, 140, 200, 35);
+		
+		pinField.addKeyListener(new KeyAdapter() {
+		    public void keyTyped(KeyEvent e) { 
+		        if (pinField.getPassword().length > 4) // limit pin to 4 characters
+		            e.consume(); 
+		    }  
+		});
 		
 		this.add(label);
 		this.add(pinField);

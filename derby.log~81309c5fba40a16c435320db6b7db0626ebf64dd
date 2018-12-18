@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Fri Dec 14 14:45:01 EST 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0167-ae40-30a4-00000e49a430 
+on database directory C:\Users\tegenton\Documents\APCS\graphical-atm\atm with class loader sun.misc.Launcher$AppClassLoader@2a139a55 
+Loaded from file:/C:/Users/tegenton/Desktop/db-derby-10.14.2.0-bin/db-derby-10.14.2.0-bin/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_144-b01
+user.dir=C:\Users\tegenton\Documents\APCS\graphical-atm
+os.name=Windows 7
+os.arch=amd64
+os.version=6.1
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
