@@ -44,7 +44,7 @@ a button to logout*/
 	 */
 	
 	private void initialize() {
-		
+		this.setLayout(null);
 		// TODO
 		//
 		// this is a placeholder for this view and should be removed once you start
@@ -59,12 +59,16 @@ a button to logout*/
 		//
 		// feel free to use my layout in LoginView as an example for laying out and
 		// positioning your components.
+		this.initLogoutButton();
+	}
+	
+	private void initLogoutButton() {
 		logoutButton = new JButton("Log Out");
-		logoutButton.setBounds(5, 5, 50, 50);
+		logoutButton.setBounds(5, 5, 100, 50);
 		logoutButton.addActionListener(this);
 		this.add(logoutButton);
 	}
-	
+
 	/*
 	 * HomeView is not designed to be serialized, and attempts to serialize will throw an IOException.
 	 * 
