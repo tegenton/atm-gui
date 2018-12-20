@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.*;
 
@@ -15,7 +17,7 @@ public class CreateView extends JPanel implements ActionListener {
 	private ViewManager manager;		// manages interactions between the views, model, and database
 	private JTextField fnameField;
 	private JTextField lnameField;
-	private JSpinner.DateEditor dobPicker; // date of birth
+	private JSpinner dobPicker; // date of birth
 	private JTextField phoneField; // TODO: make this formatted OR (this should be separated into the 3 segments of a phone number)
 	private JTextField addressField; // TODO: formatting 
 	private JPasswordField pinField;	// desired pin
@@ -74,7 +76,7 @@ a button to cancel and return to the LoginView
 		// positioning your components.
 //		this.initFnameField();
 //		this.initLnameField();
-//		this.initDobPicker(); // date of birth
+		this.initDobPicker(); // date of birth
 //		this.initPhoneField(); // TODO: make this formatted OR (this should be separated into the 3 segments of a phone number)
 //		this.initAddressField(); // TODO: formatting 
 //		this.initPinField();	// desired pin
@@ -82,6 +84,15 @@ a button to cancel and return to the LoginView
 		this.initCancelButton();
 	}
 	
+	private void initDobPicker() {
+		Date today = new Date();
+	    dobPicker = new JSpinner(new SpinnerDateModel(today, null, null, Calendar.MONTH));
+	    JSpinner.DateEditor de = new JSpinner.DateEditor(dobPicker, "MM/dd/yyyy");
+	    dobPicker.setEditor(de);
+	    dobPicker.setBounds(0, 320, 500, 35);
+	    this.add(dobPicker);
+	}
+
 	/*
 	 * CreateView is not designed to be serialized, and attempts to serialize will throw an IOException.
 	 * 
