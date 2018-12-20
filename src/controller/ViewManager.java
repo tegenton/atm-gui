@@ -66,6 +66,24 @@ public class ViewManager {
 		((CardLayout) views.getLayout()).show(views, view);
 	}
 	
+	public void logout() {
+		try {			
+			int choice = JOptionPane.showConfirmDialog(
+				views,
+				"Are you sure?",
+				"Log out of ATM",
+				JOptionPane.YES_NO_OPTION,
+				JOptionPane.QUESTION_MESSAGE
+			);
+			
+			if (choice == 0) {
+				this.switchTo(ATM.LOGIN_VIEW);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Routes a shutdown request to the database before exiting the application. This
 	 * allows the database to clean up any open resources it used.
