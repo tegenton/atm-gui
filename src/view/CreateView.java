@@ -2,12 +2,16 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import controller.ViewManager;
 
@@ -90,6 +94,19 @@ a button to cancel and return to the LoginView
 	    JSpinner.DateEditor de = new JSpinner.DateEditor(dobPicker, "MM/dd/yyyy");
 	    dobPicker.setEditor(de);
 	    dobPicker.setBounds(0, 320, 500, 35);
+	    
+//	    dobPicker.addChangeListener(new ChangeListener() {
+//
+//			@Override
+//			public void stateChanged(ChangeEvent e) {
+//				
+//				de.getModel()
+//				if ((!Character.isDigit(e.getKeyChar())) && e.getKeyChar() != '/') {
+//		        	e.consume();
+//		        }
+//			}
+//		});
+	    
 	    this.add(dobPicker);
 	}
 
