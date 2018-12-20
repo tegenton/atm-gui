@@ -205,7 +205,11 @@ public class LoginView extends JPanel implements ActionListener {
 		Object source = e.getSource();
 		
 		if (source.equals(loginButton)) {
-			manager.login(accountField.getText(), pinField.getPassword());
+			String accountNumber = accountField.getText();
+			char[] pin = pinField.getPassword();
+			accountField.setText("");
+			pinField.setText("");
+			manager.login(accountNumber, pin);
 		} else if (source.equals(createButton)) {
 			manager.switchTo(ATM.CREATE_VIEW);
 		} else if (source.equals(powerButton)) {

@@ -5,10 +5,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import controller.ViewManager;
 
@@ -22,6 +19,8 @@ public class CreateView extends JPanel implements ActionListener {
 	private JTextField phoneField; // TODO: make this formatted OR (this should be separated into the 3 segments of a phone number)
 	private JTextField addressField; // TODO: formatting 
 	private JPasswordField pinField;	// desired pin
+	private JButton submitButton;
+	private JButton cancelButton;
 	/*
 	 * a textbox to enter his or her first name
 a textbox to enter his or her last name
@@ -58,7 +57,7 @@ a button to cancel and return to the LoginView
 	 */
 	
 	private void initialize() {
-		
+		this.setLayout(null);
 		// TODO
 		//
 		// this is a placeholder for this view and should be removed once you start
@@ -73,6 +72,14 @@ a button to cancel and return to the LoginView
 		//
 		// feel free to use my layout in LoginView as an example for laying out and
 		// positioning your components.
+//		this.initFnameField();
+//		this.initLnameField();
+//		this.initDobPicker(); // date of birth
+//		this.initPhoneField(); // TODO: make this formatted OR (this should be separated into the 3 segments of a phone number)
+//		this.initAddressField(); // TODO: formatting 
+//		this.initPinField();	// desired pin
+//		this.initSubmitButton();
+		this.initCancelButton();
 	}
 	
 	/*
@@ -82,6 +89,13 @@ a button to cancel and return to the LoginView
 	 * @throws IOException
 	 */
 	
+	private void initCancelButton() {
+		cancelButton = new JButton("Back");
+		cancelButton.setBounds(5, 5, 100, 50);
+		cancelButton.addActionListener(this);
+		this.add(cancelButton);
+	}
+
 	private void writeObject(ObjectOutputStream oos) throws IOException {
 		throw new IOException("ERROR: The CreateView class is not serializable.");
 	}
@@ -104,5 +118,11 @@ a button to cancel and return to the LoginView
 		// user clicking a button, typing in a textfield, etc.).
 		//
 		// feel free to use my action listener in LoginView.java as an example.
+		
+		Object source = e.getSource();
+		
+		if (source.equals(cancelButton)) {
+			manager.switchTo(ATM.LOGIN_VIEW);
+		}
 	}
 }
