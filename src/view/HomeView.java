@@ -14,7 +14,14 @@ import controller.ViewManager;
 public class HomeView extends JPanel implements ActionListener {
 	
 	private ViewManager manager;		// manages interactions between the views, model, and database
-	
+	/*a welcome message unique to the user (first and last name)
+a label indicating the user's current account balance (formatted as $###,###.##)
+a button to initiate a deposit
+a button to initiate a withdrawal
+a button to initiate a transfer
+a button to view/edit his or her personal information
+a button to close the account
+a button to logout*/
 	private JButton logoutButton;
 	
 	/**
