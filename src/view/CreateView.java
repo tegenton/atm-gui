@@ -6,12 +6,14 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.text.MaskFormatter;
 
 import controller.ViewManager;
 
@@ -21,27 +23,17 @@ public class CreateView extends JPanel implements ActionListener {
 	private ViewManager manager;		// manages interactions between the views, model, and database
 	private JTextField fnameField;
 	private JTextField lnameField;
-	private JSpinner dobPicker; // date of birth
-	private JTextField phoneField; // TODO: make this formatted OR (this should be separated into the 3 segments of a phone number)
-	private JTextField addressField; // TODO: formatting 
+	private JFormattedTextField dobPicker; // date of birth
+	private JTextField phoneField;
+	private JTextField addressField;
+	private JTextField cityField;
+	private JTextField stateField;
+	private JTextField postalField;
 	private JPasswordField pinField;	// desired pin
+	private JButton clearButton;
 	private JButton submitButton;
 	private JButton cancelButton;
-	/*
-	 * a textbox to enter his or her first name
-a textbox to enter his or her last name
-a date picker to select his or her date of birth
-a textbox to enter his or her phone number
-this should be separated into the 3 segments of a phone number
-a textbox to enter his or her street address
-a textbox to enter his or her city
-a dropdown menu to select his or her state
-a textbox to enter his or her postal code
-a textbox to enter his or her desired PIN
-this should be masked (much like a typical password field in a mobile/web application)
-a button to create the account
-a button to cancel and return to the LoginView
-	 */
+	// TODO: limit to proper number of characters
 	
 	/**
 	 * Constructs an instance (or object) of the CreateView class.
@@ -78,44 +70,135 @@ a button to cancel and return to the LoginView
 		//
 		// feel free to use my layout in LoginView as an example for laying out and
 		// positioning your components.
-//		this.initFnameField();
-//		this.initLnameField();
+		this.initFnameField();
+		this.initLnameField();
 		this.initDobPicker(); // date of birth
-//		this.initPhoneField(); // TODO: make this formatted OR (this should be separated into the 3 segments of a phone number)
-//		this.initAddressField(); // TODO: formatting 
-//		this.initPinField();	// desired pin
-//		this.initSubmitButton();
+		this.initPhoneField();
+		this.initAddressFields();
+		this.initPinField(); // desired pin
+		this.initClearButton(); // TODO: clear all text fields
+		this.initSubmitButton(); // TODO: submit function
 		this.initCancelButton();
 	}
-	
+
+	private void initFnameField() {
+		JLabel label = new JLabel("First Name", SwingConstants.RIGHT);
+		label.setBounds(100, 155, 95, 35);
+
+		fnameField = new JTextField();
+		fnameField.setBounds(250, 155, 100, 35);
+
+		this.add(label);
+		this.add(fnameField);
+	}
+
+	private void initLnameField() {
+		JLabel label = new JLabel("Last Name", SwingConstants.RIGHT);
+		label.setBounds(100, 190, 95, 35);
+
+		lnameField = new JTextField();
+		lnameField.setBounds(250, 190, 100, 35);
+
+		this.add(label);
+		this.add(lnameField);
+	}
+
 	private void initDobPicker() {
-		Date today = new Date();
-	    dobPicker = new JSpinner(new SpinnerDateModel(today, null, null, Calendar.MONTH));
-	    JSpinner.DateEditor de = new JSpinner.DateEditor(dobPicker, "MM/dd/yyyy");
-	    dobPicker.setEditor(de);
-	    dobPicker.setBounds(0, 320, 500, 35);
-	    
-//	    dobPicker.addChangeListener(new ChangeListener() {
-//
-//			@Override
-//			public void stateChanged(ChangeEvent e) {
-//				
-//				de.getModel()
-//				if ((!Character.isDigit(e.getKeyChar())) && e.getKeyChar() != '/') {
-//		        	e.consume();
-//		        }
-//			}
-//		});
-	    
+		JLabel label = new JLabel("Date of Birth", SwingConstants.RIGHT);
+		label.setBounds(100, 225, 95, 35);
+
+	    try {
+			MaskFormatter dateFormat = new MaskFormatter("##/##/####");
+			dateFormat.setPlaceholderCharacter('_');
+			dobPicker = new JFormattedTextField(dateFormat);
+		} catch (ParseException e) {
+			phoneField.setText("");
+		}
+		dobPicker.setBounds(250, 225, 100, 35);
+
+		this.add(label);
 	    this.add(dobPicker);
 	}
 
-	/*
-	 * CreateView is not designed to be serialized, and attempts to serialize will throw an IOException.
-	 * 
-	 * @param oos
-	 * @throws IOException
-	 */
+	private void initPhoneField() {
+		JLabel label = new JLabel("Phone Number", SwingConstants.RIGHT);
+		label.setBounds(100, 260, 95, 35);
+
+		try {
+			MaskFormatter phoneFormat = new MaskFormatter("(###) ###-####");
+			phoneFormat.setPlaceholderCharacter('_');
+			phoneField = new JFormattedTextField(phoneFormat);
+		} catch (ParseException e) {
+			phoneField.setText("");
+		}
+		phoneField.setBounds(250, 260, 100, 35);
+
+		this.add(label);
+		this.add(phoneField);
+	}
+
+	private void initAddressFields() {
+		JLabel label = new JLabel("Street Address", SwingConstants.RIGHT);
+		label.setBounds(100, 295, 95, 35);
+
+		addressField = new JTextField();
+		addressField.setBounds(250, 295, 100, 35);
+
+		this.add(label);
+		this.add(addressField);
+
+		label = new JLabel("City", SwingConstants.RIGHT);
+		label.setBounds(100, 330, 95, 35);
+
+		cityField = new JTextField();
+		cityField.setBounds(250, 330, 100, 35);
+
+		this.add(label);
+		this.add(cityField);
+
+		label = new JLabel("State", SwingConstants.RIGHT);
+		label.setBounds(100, 365, 95, 35);
+
+		stateField = new JTextField();
+		stateField.setBounds(250, 365, 100, 35);
+
+		this.add(label);
+		this.add(stateField);
+
+		label = new JLabel("Postal Code", SwingConstants.RIGHT);
+		label.setBounds(100, 400, 95, 35);
+
+		postalField = new JTextField();
+		postalField.setBounds(250, 400, 100, 35);
+
+		this.add(label);
+		this.add(postalField);
+	}
+
+	private void initPinField() {
+		JLabel label = new JLabel("PIN", SwingConstants.RIGHT);
+		label.setBounds(100, 435, 95, 35);
+
+		pinField = new JPasswordField();
+		pinField.setBounds(250, 435, 100, 35);
+
+		this.add(label);
+		this.add(pinField);
+	}
+
+	private void initClearButton() {
+		clearButton = new JButton("Clear");
+		clearButton.setBounds(395,5,100,50);
+		clearButton.addActionListener(this);
+		this.add(clearButton);
+	}
+
+	private void initSubmitButton() {
+		submitButton = new JButton("Submit");
+		submitButton.setBounds(200,5,100,50);
+		submitButton.addActionListener(this);
+		this.add(submitButton);
+	}
 	
 	private void initCancelButton() {
 		cancelButton = new JButton("Back");
@@ -123,6 +206,13 @@ a button to cancel and return to the LoginView
 		cancelButton.addActionListener(this);
 		this.add(cancelButton);
 	}
+
+	/*
+	 * CreateView is not designed to be serialized, and attempts to serialize will throw an IOException.
+	 *
+	 * @param oos
+	 * @throws IOException
+	 */
 
 	private void writeObject(ObjectOutputStream oos) throws IOException {
 		throw new IOException("ERROR: The CreateView class is not serializable.");

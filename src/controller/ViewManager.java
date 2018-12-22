@@ -20,8 +20,7 @@ public class ViewManager {
 	/**
 	 * Constructs an instance (or object) of the ViewManager class.
 	 * 
-	 * @param layout
-	 * @param container
+	 * @param views
 	 */
 	
 	public ViewManager(Container views) {
@@ -77,6 +76,8 @@ public class ViewManager {
 			);
 			
 			if (choice == 0) {
+				db.updateAccount(account);
+				account = null;
 				this.switchTo(ATM.LOGIN_VIEW);
 			}
 		} catch (Exception e) {
