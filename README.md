@@ -178,6 +178,16 @@ Assuming all information entered is valid, users should see the `InformationView
 
 Users should see the `InformationView` revert to its original (non-editing) state after clicking the `Cancel` button. In this case, no edits should persist (even if the user modified a value in one or more of the fields).
 
+## Working with the Database
+
+We're using an embedded database called Derby (by Apache). All of the database methods have already been written for you, but it might be helpful to be able to visualize your database as you work. A SQL browser client is what you need.
+
+Take a look at the following links, which will help you download, install, and configure the SQuirrel SQL client.
+* [Download and Install](http://www.squirrelsql.org/#installation)
+* [Configure](https://db.apache.org/derby/integrate/SQuirreL_Derby.html)
+
+You can skip the prerequisites portion of the configuration, which just repeats the steps to download and install.
+
 ## Deadline
 
 Your Canvas submission is due at or before 11:59pm on TBD (pending midterm schedule).
