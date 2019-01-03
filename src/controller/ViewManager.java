@@ -38,20 +38,19 @@ public class ViewManager {
 	 */
 	
 	public void login(String accountNumber, char[] pin) {
+		LoginView lv = ((LoginView) views.getComponents()[ATM.LOGIN_VIEW_INDEX]);
+		
 		try {
 			account = db.getAccount(Long.valueOf(accountNumber), Integer.valueOf(new String(pin)));
 			
 			if (account == null) {
-				LoginView lv = ((LoginView) views.getComponents()[ATM.LOGIN_VIEW_INDEX]);
 				lv.updateErrorMessage("Invalid account number and/or PIN.");
 			} else {
 				switchTo(ATM.HOME_VIEW);
-				
-				LoginView lv = ((LoginView) views.getComponents()[ATM.LOGIN_VIEW_INDEX]);
-				lv.updateErrorMessage("");
+				lv.clear();
 			}
 		} catch (NumberFormatException e) {
-			// ignore
+			lv.updateErrorMessage("Account numbers and PINs don't have letters.");
 		}
 	}
 	
