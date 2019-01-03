@@ -12,6 +12,8 @@ import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 
 import controller.ViewManager;
+import model.BankAccount;
+import model.User;
 
 @SuppressWarnings("serial")
 public class CreateView extends JPanel implements ActionListener {
@@ -29,8 +31,7 @@ public class CreateView extends JPanel implements ActionListener {
 	private JButton clearButton;
 	private JButton submitButton;
 	private JButton cancelButton;
-	// TODO: limit to proper number of characters
-	
+
 	/**
 	 * Constructs an instance (or object) of the CreateView class.
 	 * 
@@ -96,7 +97,6 @@ public class CreateView extends JPanel implements ActionListener {
 		lnameField = new JTextField();
 		lnameField.setBounds(250, 170, 100, 35);
 		addKeyListener(lnameField, 15);
-
 
 		this.add(label);
 		this.add(lnameField);
@@ -255,6 +255,12 @@ public class CreateView extends JPanel implements ActionListener {
 		
 		if (source.equals(cancelButton)) {
 			manager.switchTo(ATM.LOGIN_VIEW);
+		}
+		else if (source.equals(submitButton)) {
+			int dob = dobPicker.getText();
+			int phone = phoneField.getText();
+			User tempUser = new User(Integer.parseInt(String.valueOf(pinField.getPassword())), dob, phone, fnameField.getText(), lnameField.getText(), addressField.getText(), cityField.getText(), stateField.getText(), postalField.getText());
+			BankAccount tempAccount = new BankAccount();
 		}
 	}
 }

@@ -1,1 +1,4 @@
-/bin/
+atm/
+derby.log
+.idea/
+*.iml
