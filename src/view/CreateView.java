@@ -7,12 +7,8 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Date;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.text.MaskFormatter;
 
 import controller.ViewManager;
@@ -83,10 +79,11 @@ public class CreateView extends JPanel implements ActionListener {
 
 	private void initFnameField() {
 		JLabel label = new JLabel("First Name", SwingConstants.RIGHT);
-		label.setBounds(100, 155, 95, 35);
+		label.setBounds(100, 135, 95, 35);
 
 		fnameField = new JTextField();
-		fnameField.setBounds(250, 155, 100, 35);
+		fnameField.setBounds(250, 135, 100, 35);
+		addKeyListener(fnameField, 15);
 
 		this.add(label);
 		this.add(fnameField);
@@ -94,10 +91,12 @@ public class CreateView extends JPanel implements ActionListener {
 
 	private void initLnameField() {
 		JLabel label = new JLabel("Last Name", SwingConstants.RIGHT);
-		label.setBounds(100, 190, 95, 35);
+		label.setBounds(100, 170, 95, 35);
 
 		lnameField = new JTextField();
-		lnameField.setBounds(250, 190, 100, 35);
+		lnameField.setBounds(250, 170, 100, 35);
+		addKeyListener(lnameField, 15);
+
 
 		this.add(label);
 		this.add(lnameField);
@@ -105,16 +104,16 @@ public class CreateView extends JPanel implements ActionListener {
 
 	private void initDobPicker() {
 		JLabel label = new JLabel("Date of Birth", SwingConstants.RIGHT);
-		label.setBounds(100, 225, 95, 35);
+		label.setBounds(100, 205, 95, 35);
 
 	    try {
 			MaskFormatter dateFormat = new MaskFormatter("##/##/####");
 			dateFormat.setPlaceholderCharacter('_');
 			dobPicker = new JFormattedTextField(dateFormat);
 		} catch (ParseException e) {
-			phoneField.setText("");
+			dobPicker.setText("");
 		}
-		dobPicker.setBounds(250, 225, 100, 35);
+		dobPicker.setBounds(250, 205, 100, 35);
 
 		this.add(label);
 	    this.add(dobPicker);
@@ -122,7 +121,7 @@ public class CreateView extends JPanel implements ActionListener {
 
 	private void initPhoneField() {
 		JLabel label = new JLabel("Phone Number", SwingConstants.RIGHT);
-		label.setBounds(100, 260, 95, 35);
+		label.setBounds(100, 240, 95, 35);
 
 		try {
 			MaskFormatter phoneFormat = new MaskFormatter("(###) ###-####");
@@ -131,7 +130,7 @@ public class CreateView extends JPanel implements ActionListener {
 		} catch (ParseException e) {
 			phoneField.setText("");
 		}
-		phoneField.setBounds(250, 260, 100, 35);
+		phoneField.setBounds(250, 240, 100, 35);
 
 		this.add(label);
 		this.add(phoneField);
@@ -139,37 +138,41 @@ public class CreateView extends JPanel implements ActionListener {
 
 	private void initAddressFields() {
 		JLabel label = new JLabel("Street Address", SwingConstants.RIGHT);
-		label.setBounds(100, 295, 95, 35);
+		label.setBounds(100, 275, 95, 35);
 
 		addressField = new JTextField();
-		addressField.setBounds(250, 295, 100, 35);
+		addressField.setBounds(250, 275, 100, 35);
+		addKeyListener(addressField, 30);
 
 		this.add(label);
 		this.add(addressField);
 
 		label = new JLabel("City", SwingConstants.RIGHT);
-		label.setBounds(100, 330, 95, 35);
+		label.setBounds(100, 310, 95, 35);
 
 		cityField = new JTextField();
-		cityField.setBounds(250, 330, 100, 35);
+		cityField.setBounds(250, 310, 100, 35);
+		addKeyListener(cityField, 30);
 
 		this.add(label);
 		this.add(cityField);
 
 		label = new JLabel("State", SwingConstants.RIGHT);
-		label.setBounds(100, 365, 95, 35);
+		label.setBounds(100, 345, 95, 35);
 
 		stateField = new JTextField();
-		stateField.setBounds(250, 365, 100, 35);
+		stateField.setBounds(250, 345, 100, 35);
+		addKeyListener(stateField, 2);
 
 		this.add(label);
 		this.add(stateField);
 
 		label = new JLabel("Postal Code", SwingConstants.RIGHT);
-		label.setBounds(100, 400, 95, 35);
+		label.setBounds(100, 380, 95, 35);
 
 		postalField = new JTextField();
-		postalField.setBounds(250, 400, 100, 35);
+		postalField.setBounds(250, 380, 100, 35);
+		addKeyListener(postalField, 5);
 
 		this.add(label);
 		this.add(postalField);
@@ -177,10 +180,11 @@ public class CreateView extends JPanel implements ActionListener {
 
 	private void initPinField() {
 		JLabel label = new JLabel("PIN", SwingConstants.RIGHT);
-		label.setBounds(100, 435, 95, 35);
+		label.setBounds(100, 415, 95, 35);
 
 		pinField = new JPasswordField();
-		pinField.setBounds(250, 435, 100, 35);
+		pinField.setBounds(250, 415, 100, 35);
+		addKeyListener(pinField, 4);
 
 		this.add(label);
 		this.add(pinField);
@@ -205,6 +209,16 @@ public class CreateView extends JPanel implements ActionListener {
 		cancelButton.setBounds(5, 5, 100, 50);
 		cancelButton.addActionListener(this);
 		this.add(cancelButton);
+	}
+	
+	private void addKeyListener(JTextField field, int length) {
+		field.addKeyListener(new KeyAdapter() {
+		    public void keyTyped(KeyEvent e) {
+		        if (field.getText().length() >= length) // limit account number to 9 characters
+		            e.consume();
+		    }
+		});
+
 	}
 
 	/*
