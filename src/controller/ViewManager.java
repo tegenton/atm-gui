@@ -2,7 +2,6 @@ package controller;
 
 import java.awt.CardLayout;
 import java.awt.Container;
-import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
@@ -107,18 +106,5 @@ public class ViewManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	public long getMaxAccountNumber() {
-		try {
-			return db.getMaxAccountNumber();
-		} catch (SQLException e) {
-			return -1;
-		}
-	}
-
-	public void addAccount(BankAccount account) {
-		db.insertAccount(account);
-		login(String.valueOf(account.getAccountNumber()), String.valueOf(account.getUser().getPin()).toCharArray());
 	}
 }
