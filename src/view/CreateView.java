@@ -259,10 +259,10 @@ public class CreateView extends JPanel implements ActionListener {
 		else if (source.equals(submitButton)) {
 			String strDob = dobPicker.getText();
 			String strPhone = phoneField.getText();
-			int dob = Integer.parseInt(strDob.substring(0,2) * 1000000 + Integer.parseInt(strDob.substring(4,6) * 10000 + Integer.parseInt(strDob.substring(8,12);
-			int phone = Integer.parseInt(strPhone.substring(1,4) * 10000000 + int phone = Integer.parseInt(strPhone.substring(6,9) * 10000 + Integer.parseInt(strPhone.substring(10, 14));
+			int dob = Integer.parseInt(strDob.substring(0,2) + strDob.substring(3,5) + strDob.substring(6,10));
+			int phone = Integer.parseInt(strPhone.substring(1,4) + strPhone.substring(6,9) + strPhone.substring(10, 14));
 			User tempUser = new User(Integer.parseInt(String.valueOf(pinField.getPassword())), dob, phone, fnameField.getText(), lnameField.getText(), addressField.getText(), cityField.getText(), stateField.getText(), postalField.getText());
-			BankAccount tempAccount = new BankAccount('Y', data.Database.getMaxAccountNumber() + 1, 0.0, tempuser)
+			BankAccount tempAccount = new BankAccount('Y', manager.getMaxAccountNumber() + 1, 0.0, tempUser);
 			manager.addAccount(tempAccount); // TODO 
 		}
 	}
