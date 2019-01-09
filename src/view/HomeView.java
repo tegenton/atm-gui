@@ -5,8 +5,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import controller.ViewManager;
 
@@ -23,6 +22,7 @@ a button to view/edit his or her personal information
 a button to close the account
 a button to logout*/
 	private JButton logoutButton;
+	private JLabel accountMessage;
 	
 	/**
 	 * Constructs an instance (or objects) of the HomeView class.
@@ -49,8 +49,8 @@ a button to logout*/
 		//
 		// this is a placeholder for this view and should be removed once you start
 		// building the HomeView.
-		
-		this.add(new javax.swing.JLabel("HomeView", javax.swing.SwingConstants.CENTER));
+		// temp thing
+		this.initAccountMessage();
 		
 		// TODO
 		//
@@ -61,7 +61,13 @@ a button to logout*/
 		// positioning your components.
 		this.initLogoutButton();
 	}
-	
+
+	private void initAccountMessage() {
+		accountMessage = new JLabel("", SwingConstants.CENTER);
+		accountMessage.setBounds(50, 50, 500, 50);
+		this.add(accountMessage);
+	}
+
 	private void initLogoutButton() {
 		logoutButton = new JButton("Log Out");
 		logoutButton.setBounds(5, 5, 100, 50);
@@ -103,5 +109,9 @@ a button to logout*/
 		if (source.equals(logoutButton)) {
 			manager.logout();
 		}
+	}
+
+	public void updateAccountMessage() {
+		accountMessage.setText(manager.getAccount().getUser().getFirstName() + " " + manager.getAccount().getUser().getLastName() + "; " + manager.getAccount().getAccountNumber() + "; " +);
 	}
 }

@@ -8,8 +8,7 @@ import javax.swing.JOptionPane;
 
 import data.Database;
 import model.BankAccount;
-import view.ATM;
-import view.LoginView;
+import view.*;
 
 public class ViewManager {
 	
@@ -17,6 +16,10 @@ public class ViewManager {
 	private Database db;					// a reference to the database
 	private BankAccount account;			// the user's bank account
 	private BankAccount destination;		// an account to which the user can transfer funds
+
+	public BankAccount getAccount() {
+		return account;
+	}
 	
 	/**
 	 * Constructs an instance (or object) of the ViewManager class.
@@ -47,6 +50,7 @@ public class ViewManager {
 			if (account == null) {
 				lv.updateErrorMessage("Invalid account number and/or PIN.");
 			} else {
+				((HomeView) views.getComponents()[ATM.HOME_VIEW_INDEX]).updateAccountMessage();
 				switchTo(ATM.HOME_VIEW);
 				lv.clear();
 			}
