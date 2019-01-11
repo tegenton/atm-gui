@@ -21,9 +21,14 @@ a button to initiate a transfer
 a button to view/edit his or her personal information
 a button to close the account
 a button to logout*/
-	private JButton logoutButton;
 	private JLabel accountMessage;
-	
+	private JButton depositButton;
+	private JButton withdrawButton;
+	private JButton transferButton;
+	private JButton editInfoButton;
+	private JButton closeaccountButton;
+	private JButton logoutButton;
+
 	/**
 	 * Constructs an instance (or objects) of the HomeView class.
 	 * 
@@ -60,12 +65,36 @@ a button to logout*/
 		// feel free to use my layout in LoginView as an example for laying out and
 		// positioning your components.
 		this.initLogoutButton();
+		this.initDepositButton();
+		this.initWithdrawButton();
+		this.initTransferButton();
 	}
 
 	private void initAccountMessage() {
 		accountMessage = new JLabel("", SwingConstants.CENTER);
 		accountMessage.setBounds(50, 50, 500, 50);
 		this.add(accountMessage);
+	}
+
+	private void initDepositButton() {
+		depositButton = new JButton("Deposit");
+		depositButton.setBounds(50, 100, 100, 100);
+		depositButton.addActionListener(this);
+		this.add(depositButton);
+	}
+
+	private void initWithdrawButton () {
+		withdrawButton = new JButton("Withdraw");
+		withdrawButton.setBounds(200, 100, 100, 100);
+		withdrawButton.addActionListener(this);
+		this.add(withdrawButton);
+	}
+
+	private void initTransferButton() {
+		transferButton = new JButton("Transfer");
+		transferButton.setBounds(50, 250, 100, 100);
+		transferButton.addActionListener(this);
+		this.add(transferButton);
 	}
 
 	private void initLogoutButton() {
@@ -109,9 +138,48 @@ a button to logout*/
 		if (source.equals(logoutButton)) {
 			manager.logout();
 		}
+		else if (source.equals(depositButton)) {
+			deposit();
+			updateAccountMessage();
+		}
+		else if (source.equals(withdrawButton)) {
+			withdraw();
+			updateAccountMessage();
+		}
+		else if (source.equals(transferButton)) {
+			transfer();
+			updateAccountMessage();
+		}
 	}
 
+	private void deposit() {
+		try {
+			double amount = Double.parseDouble(JOptionPane.showInputDialog("How much are you depositing?"));
+			if (manager.deposit(amount) != ATM.SUCCESS) {
+				throw new NumberFormatException();
+			}
+		}
+		catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "Invalid amount", "Invalid Amount", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	private void withdraw() {
+		try {
+			double amount = Double.parseDouble(JOptionPane.showInputDialog("How much are you withdrawing?"));
+			if (manager.withdraw(amount) != ATM.SUCCESS) {
+				throw new NumberFormatException();
+			}
+		}
+		catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "Invalid amount", "Invalid Amount", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	private void transfer() {
+
+	}
 	public void updateAccountMessage() {
-		accountMessage.setText(manager.getAccount().getUser().getFirstName() + " " + manager.getAccount().getUser().getLastName() + "; " + manager.getAccount().getAccountNumber() + "; " +);
+		accountMessage.setText(manager.getAccount().getUser().getFirstName() + " " + manager.getAccount().getUser().getLastName() + "; " + manager.getAccount().getAccountNumber() + "; " + manager.getAccount().getBalance());
 	}
 }

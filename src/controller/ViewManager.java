@@ -125,4 +125,12 @@ public class ViewManager {
 		db.insertAccount(account);
 		login(String.valueOf(account.getAccountNumber()), String.valueOf(account.getUser().getPin()).toCharArray());
 	}
+
+	public int deposit(double amount) {
+		return account.deposit(amount);
+	}
+
+	public int withdraw(double amount) {
+		return account.withdraw(amount);
+	}
 }
