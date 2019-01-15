@@ -177,6 +177,16 @@ a button to logout*/
 	}
 
 	private void transfer() {
+		JTextField targetAccount = new JTextField();
+		JTextField amount = new JTextField();
+
+		JPanel transferInput = new JPanel();
+		transferInput.add(new JLabel("Account Number:"));
+		transferInput.add(targetAccount);
+		transferInput.add(new JLabel("Amount:"));
+		transferInput.add(amount);
+
+		int result = JOptionPane.showConfirmDialog(null, transferInput, "Transfer Funds", JOptionPane.OK_CANCEL_OPTION);
 
 	}
 	public void updateAccountMessage() {
