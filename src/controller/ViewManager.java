@@ -133,4 +133,10 @@ public class ViewManager {
 	public int withdraw(double amount) {
 		return account.withdraw(amount);
 	}
+
+	public int transfer(long accountNum, double amount) {
+		destination = db.getAccount(accountNum);
+
+		return account.transfer(destination, amount);
+	}
 }

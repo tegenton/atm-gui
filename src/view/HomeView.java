@@ -177,17 +177,26 @@ a button to logout*/
 	}
 
 	private void transfer() {
-		JTextField targetAccount = new JTextField();
-		JTextField amount = new JTextField();
+		try {
+			JTextField targetAccount = new JTextField();
+			JTextField amount = new JTextField();
 
-		JPanel transferInput = new JPanel();
-		transferInput.add(new JLabel("Account Number:"));
-		transferInput.add(targetAccount);
-		transferInput.add(new JLabel("Amount:"));
-		transferInput.add(amount);
+			JPanel transferInput = new JPanel();
+			transferInput.add(new JLabel("Account Number:"));
+			transferInput.add(targetAccount);
+			transferInput.add(new JLabel("Amount:"));
+			transferInput.add(amount);
 
-		int result = JOptionPane.showConfirmDialog(null, transferInput, "Transfer Funds", JOptionPane.OK_CANCEL_OPTION);
+			int result = JOptionPane.showConfirmDialog(null, transferInput, "Transfer Funds", JOptionPane.OK_CANCEL_OPTION);
 
+			if (result == JOptionPane.OK_OPTION) {
+				manager.transfer(Long.parseLong(targetAccount.getText()), Double.parseDouble(amount.getText()));
+			}
+
+		}
+		catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "Invalid amount", "Invalid Amount", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	public void updateAccountMessage() {
 		accountMessage.setText(manager.getAccount().getUser().getFirstName() + " " + manager.getAccount().getUser().getLastName() + "; " + manager.getAccount().getAccountNumber() + "; " + manager.getAccount().getBalance());
