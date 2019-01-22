@@ -26,7 +26,7 @@ a button to logout*/
 	private JButton withdrawButton;
 	private JButton transferButton;
 	private JButton editInfoButton;
-	private JButton closeaccountButton;
+	private JButton closeAccountButton;
 	private JButton logoutButton;
 
 	/**
@@ -68,6 +68,8 @@ a button to logout*/
 		this.initDepositButton();
 		this.initWithdrawButton();
 		this.initTransferButton();
+		this.initEditButton();
+		this.initCloseAccountButton();
 	}
 
 	private void initAccountMessage() {
@@ -95,6 +97,20 @@ a button to logout*/
 		transferButton.setBounds(50, 250, 100, 100);
 		transferButton.addActionListener(this);
 		this.add(transferButton);
+	}
+
+	private void initEditButton() {
+		editInfoButton = new JButton("Acct. Info");
+		editInfoButton.setBounds(200, 250, 100, 100);
+		editInfoButton.addActionListener(this);
+		this.add(editInfoButton);
+	}
+
+	private void initCloseAccountButton() {
+		closeAccountButton = new JButton("Close Acct.");
+		closeAccountButton.setBounds(350, 250, 100, 100);
+		closeAccountButton.addActionListener(this);
+		this.add(closeAccountButton);
 	}
 
 	private void initLogoutButton() {
