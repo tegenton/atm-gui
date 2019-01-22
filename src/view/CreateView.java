@@ -314,6 +314,9 @@ public class CreateView extends JPanel implements ActionListener {
 		else if (source.equals(submitButton)) {
 			String strDob = dobPicker.getText();
 			String strPhone = phoneField.getText();
+
+			System.out.println(manager.getMaxAccountNumber());
+
 			int dob = Integer.parseInt(strDob.substring(0,2) + strDob.substring(3,5) + strDob.substring(6,10));
 			int phone = Integer.parseInt(strPhone.substring(1,4) + strPhone.substring(6,9) + strPhone.substring(10, 14));
 			User tempUser = new User(Integer.parseInt(String.valueOf(pinField.getPassword())), dob, phone, fnameField.getText(), lnameField.getText(), addressField.getText(), cityField.getText(), (String) stateField.getSelectedItem(), postalField.getText());

@@ -139,4 +139,9 @@ public class ViewManager {
 
 		return account.transfer(destination, amount);
 	}
+
+	public void closeAccount() {
+		db.closeAccount(account);
+		logout();
+	}
 }

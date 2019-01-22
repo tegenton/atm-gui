@@ -312,7 +312,7 @@ public class Database {
 
 	public long getMaxAccountNumber() throws SQLException {
 		stmt = conn.createStatement();
-		stmt.executeQuery("SELECT max(account_number) FROM accounts");
+		rs = stmt.executeQuery("SELECT max(account_number) FROM accounts");
 
 		if (rs.next()) {
 			return rs.getLong(1);

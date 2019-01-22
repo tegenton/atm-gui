@@ -166,6 +166,12 @@ a button to logout*/
 			transfer();
 			updateAccountMessage();
 		}
+		else if (source.equals(editInfoButton)) {
+
+		}
+		else if (source.equals(closeAccountButton)) {
+			manager.closeAccount();
+		}
 	}
 
 	private void deposit() {
