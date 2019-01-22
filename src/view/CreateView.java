@@ -25,7 +25,7 @@ public class CreateView extends JPanel implements ActionListener {
 	private JTextField phoneField;
 	private JTextField addressField;
 	private JTextField cityField;
-	private JTextField stateField;
+	private JComboBox<String> stateField;
 	private JTextField postalField;
 	private JPasswordField pinField;	// desired pin
 	private JButton clearButton;
@@ -160,9 +160,60 @@ public class CreateView extends JPanel implements ActionListener {
 		label = new JLabel("State", SwingConstants.RIGHT);
 		label.setBounds(100, 345, 95, 35);
 
-		stateField = new JTextField();
+		// list of states
+		String[] states = {"AL",
+			"AK",
+			"AZ",
+			"AR",
+			"CA",
+			"CO",
+			"CT",
+			"DE",
+			"FL",
+			"GA",
+			"HI",
+			"ID",
+			"IL",
+			"IN",
+			"IA",
+			"KS",
+			"KY",
+			"LA",
+			"ME",
+			"MD",
+			"MA",
+			"MI",
+			"MN",
+			"MS",
+			"MO",
+			"MT",
+			"NE",
+			"NV",
+			"NH",
+			"NJ",
+			"NM",
+			"NY",
+			"NC",
+			"ND",
+			"OH",
+			"OK",
+			"OR",
+			"PA",
+			"RI",
+			"SC",
+			"SD",
+			"TN",
+			"TX",
+			"UT",
+			"VT",
+			"VA",
+			"WA",
+			"WV",
+			"WI",
+			"WY"
+		};
+		stateField = new JComboBox<>(states);
 		stateField.setBounds(250, 345, 100, 35);
-		addKeyListener(stateField, 2);
 
 		this.add(label);
 		this.add(stateField);
@@ -254,16 +305,32 @@ public class CreateView extends JPanel implements ActionListener {
 		Object source = e.getSource();
 		
 		if (source.equals(cancelButton)) {
+			clear();
 			manager.switchTo(ATM.LOGIN_VIEW);
+		}
+		else if (source.equals(clearButton)) {
+			clear();
 		}
 		else if (source.equals(submitButton)) {
 			String strDob = dobPicker.getText();
 			String strPhone = phoneField.getText();
 			int dob = Integer.parseInt(strDob.substring(0,2) + strDob.substring(3,5) + strDob.substring(6,10));
 			int phone = Integer.parseInt(strPhone.substring(1,4) + strPhone.substring(6,9) + strPhone.substring(10, 14));
-			User tempUser = new User(Integer.parseInt(String.valueOf(pinField.getPassword())), dob, phone, fnameField.getText(), lnameField.getText(), addressField.getText(), cityField.getText(), stateField.getText(), postalField.getText());
+			User tempUser = new User(Integer.parseInt(String.valueOf(pinField.getPassword())), dob, phone, fnameField.getText(), lnameField.getText(), addressField.getText(), cityField.getText(), (String) stateField.getSelectedItem(), postalField.getText());
 			BankAccount tempAccount = new BankAccount('Y', manager.getMaxAccountNumber() + 1, 0.0, tempUser);
 			manager.addAccount(tempAccount); // TODO 
 		}
+	}
+
+	private void clear() {
+		fnameField.setText("");
+		lnameField.setText("");
+		dobPicker.setText(""); // date of birth
+		phoneField.setText("");
+		addressField.setText("");
+		cityField.setText("");
+		stateField.setSelectedItem("Choose One");
+		postalField.setText("");
+		pinField.setText("");	// desired pin
 	}
 }
