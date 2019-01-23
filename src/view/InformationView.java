@@ -21,15 +21,14 @@ public class InformationView extends JPanel implements ActionListener {
 	private ViewManager manager;		// manages interactions between the views, model, and database
 	private JTextField fnameField;
 	private JTextField lnameField;
-	private JFormattedTextField dobPicker; // date of birth
+	private JTextField dobPicker; // date of birth
 	private JTextField phoneField;
 	private JTextField addressField;
 	private JTextField cityField;
 	private JComboBox<String> stateField;
 	private JTextField postalField;
 	private JPasswordField pinField;	// desired pin
-	private JButton clearButton;
-	private JButton submitButton;
+	private JButton editButton;
 	private JButton cancelButton;
 
 	/**
@@ -73,9 +72,9 @@ public class InformationView extends JPanel implements ActionListener {
 		this.initPhoneField();
 		this.initAddressFields();
 		this.initPinField(); // desired pin
-		this.initClearButton(); // TODO: clear all text fields
-		this.initSubmitButton(); // TODO: submit function
+		this.initEditButton(); // TODO: submit function
 		this.initCancelButton();
+		clear();
 	}
 
 	private void initFnameField() {
@@ -84,7 +83,7 @@ public class InformationView extends JPanel implements ActionListener {
 
 		fnameField = new JTextField();
 		fnameField.setBounds(250, 135, 100, 35);
-		addKeyListener(fnameField, 15);
+		fnameField.setEditable(false);
 
 		this.add(label);
 		this.add(fnameField);
@@ -96,7 +95,7 @@ public class InformationView extends JPanel implements ActionListener {
 
 		lnameField = new JTextField();
 		lnameField.setBounds(250, 170, 100, 35);
-		addKeyListener(lnameField, 15);
+		lnameField.setEditable(false);
 
 		this.add(label);
 		this.add(lnameField);
@@ -106,14 +105,9 @@ public class InformationView extends JPanel implements ActionListener {
 		JLabel label = new JLabel("Date of Birth", SwingConstants.RIGHT);
 		label.setBounds(100, 205, 95, 35);
 
-		try {
-			MaskFormatter dateFormat = new MaskFormatter("##/##/####");
-			dateFormat.setPlaceholderCharacter('_');
-			dobPicker = new JFormattedTextField(dateFormat);
-		} catch (ParseException e) {
-			dobPicker.setText("");
-		}
-		dobPicker.setBounds(250, 205, 100, 35);
+		dobPicker = new JTextField();
+		dobPicker.setBounds(250,205,100,35);
+		dobPicker.setEditable(false);
 
 		this.add(label);
 		this.add(dobPicker);
@@ -123,14 +117,9 @@ public class InformationView extends JPanel implements ActionListener {
 		JLabel label = new JLabel("Phone Number", SwingConstants.RIGHT);
 		label.setBounds(100, 240, 95, 35);
 
-		try {
-			MaskFormatter phoneFormat = new MaskFormatter("(###) ###-####");
-			phoneFormat.setPlaceholderCharacter('_');
-			phoneField = new JFormattedTextField(phoneFormat);
-		} catch (ParseException e) {
-			phoneField.setText("");
-		}
+		phoneField = new JTextField();
 		phoneField.setBounds(250, 240, 100, 35);
+		phoneField.setEditable(false);
 
 		this.add(label);
 		this.add(phoneField);
@@ -142,7 +131,7 @@ public class InformationView extends JPanel implements ActionListener {
 
 		addressField = new JTextField();
 		addressField.setBounds(250, 275, 100, 35);
-		addKeyListener(addressField, 30);
+		addressField.setEditable(false);
 
 		this.add(label);
 		this.add(addressField);
@@ -152,7 +141,7 @@ public class InformationView extends JPanel implements ActionListener {
 
 		cityField = new JTextField();
 		cityField.setBounds(250, 310, 100, 35);
-		addKeyListener(cityField, 30);
+		cityField.setEditable(false);
 
 		this.add(label);
 		this.add(cityField);
@@ -214,6 +203,7 @@ public class InformationView extends JPanel implements ActionListener {
 		};
 		stateField = new JComboBox<>(states);
 		stateField.setBounds(250, 345, 100, 35);
+		stateField.setEditable(false);
 
 		this.add(label);
 		this.add(stateField);
@@ -223,7 +213,7 @@ public class InformationView extends JPanel implements ActionListener {
 
 		postalField = new JTextField();
 		postalField.setBounds(250, 380, 100, 35);
-		addKeyListener(postalField, 5);
+		postalField.setEditable(false);
 
 		this.add(label);
 		this.add(postalField);
@@ -235,24 +225,17 @@ public class InformationView extends JPanel implements ActionListener {
 
 		pinField = new JPasswordField();
 		pinField.setBounds(250, 415, 100, 35);
-		addKeyListener(pinField, 4);
+		pinField.setEditable(false);
 
 		this.add(label);
 		this.add(pinField);
 	}
 
-	private void initClearButton() {
-		clearButton = new JButton("Clear");
-		clearButton.setBounds(395,5,100,50);
-		clearButton.addActionListener(this);
-		this.add(clearButton);
-	}
-
-	private void initSubmitButton() {
-		submitButton = new JButton("Submit");
-		submitButton.setBounds(200,5,100,50);
-		submitButton.addActionListener(this);
-		this.add(submitButton);
+	private void initEditButton() {
+		editButton = new JButton("Edit Information");
+		editButton.setBounds(200,5,100,50);
+		editButton.addActionListener(this);
+		this.add(editButton);
 	}
 
 	private void initCancelButton() {
@@ -306,12 +289,9 @@ public class InformationView extends JPanel implements ActionListener {
 
 		if (source.equals(cancelButton)) {
 			clear();
-			manager.switchTo(ATM.LOGIN_VIEW);
+			manager.switchTo(ATM.HOME_VIEW);
 		}
-		else if (source.equals(clearButton)) {
-			clear();
-		}
-		else if (source.equals(submitButton)) {
+		else if (source.equals(editButton)) {
 			String strDob = dobPicker.getText();
 			String strPhone = phoneField.getText();
 

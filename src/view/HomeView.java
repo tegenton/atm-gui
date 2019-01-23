@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.text.DecimalFormat;
 
 import javax.swing.*;
 
@@ -167,7 +168,7 @@ a button to logout*/
 			updateAccountMessage();
 		}
 		else if (source.equals(editInfoButton)) {
-
+			manager.editInfo();
 		}
 		else if (source.equals(closeAccountButton)) {
 			manager.closeAccount();
@@ -221,6 +222,11 @@ a button to logout*/
 		}
 	}
 	public void updateAccountMessage() {
-		accountMessage.setText(manager.getAccount().getUser().getFirstName() + " " + manager.getAccount().getUser().getLastName() + "; " + manager.getAccount().getAccountNumber() + "; " + manager.getAccount().getBalance());
+		DecimalFormat money = new DecimalFormat("$###,###.##");
+
+		accountMessage.setText(
+			manager.getAccount().getUser().getFirstName() + " " + manager.getAccount().getUser().getLastName() + "; " +
+				manager.getAccount().getAccountNumber() + "; " +
+				money.format(manager.getAccount().getBalance()));
 	}
 }

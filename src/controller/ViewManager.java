@@ -144,4 +144,7 @@ public class ViewManager {
 		db.closeAccount(account);
 		logout();
 	}
+
+	public void editInfo() {
+	}
 }
