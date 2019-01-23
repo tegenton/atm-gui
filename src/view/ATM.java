@@ -40,7 +40,7 @@ public class ATM extends JFrame {
 	public final static int LOGIN_VIEW_INDEX = 0;
 	public final static int CREATE_VIEW_INDEX = 1;
 	public final static int HOME_VIEW_INDEX = 2;
-	public final static int EDIT_VIEW_INDEX = 3;
+	public final static int INFO_VIEW_INDEX = 3;
 		
 	/**
 	 * Constructs an instance (or object) of the ATM class.

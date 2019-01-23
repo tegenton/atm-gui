@@ -141,10 +141,21 @@ public class ViewManager {
 	}
 
 	public void closeAccount() {
-		db.closeAccount(account);
-		logout();
+		int choice = JOptionPane.showConfirmDialog(
+				views,
+				"Are you sure?",
+				"Log out of ATM",
+				JOptionPane.YES_NO_OPTION,
+				JOptionPane.QUESTION_MESSAGE
+			);
+		if (choice == JOptionPane.YES_OPTION) {
+			db.closeAccount(account);
+			account = null;
+			this.switchTo(ATM.LOGIN_VIEW);
+		}
 	}
 
 	public void editInfo() {
+		this.switchTo(ATM.INFO_VIEW);
 	}
 }
