@@ -31,6 +31,7 @@ public class CreateView extends JPanel implements ActionListener {
 	private JButton clearButton;
 	private JButton submitButton;
 	private JButton cancelButton;
+	private JLabel errorMessage;
 
 	/**
 	 * Constructs an instance (or object) of the CreateView class.
@@ -76,6 +77,10 @@ public class CreateView extends JPanel implements ActionListener {
 		this.initClearButton(); // TODO: clear all text fields
 		this.initSubmitButton(); // TODO: submit function
 		this.initCancelButton();
+
+		errorMessage = new JLabel("");
+		errorMessage.setBounds(200,50,100,50);
+		this.add(errorMessage);
 	}
 
 	private void initFnameField() {
@@ -312,16 +317,22 @@ public class CreateView extends JPanel implements ActionListener {
 			clear();
 		}
 		else if (source.equals(submitButton)) {
-			String strDob = dobPicker.getText();
-			String strPhone = phoneField.getText();
+			try {
+				String strDob = dobPicker.getText();
+				String strPhone = phoneField.getText();
 
-			System.out.println(manager.getMaxAccountNumber());
+				System.out.println(manager.getMaxAccountNumber());
 
-			int dob = Integer.parseInt(strDob.substring(0,2) + strDob.substring(3,5) + strDob.substring(6,10));
-			int phone = Integer.parseInt(strPhone.substring(1,4) + strPhone.substring(6,9) + strPhone.substring(10, 14));
-			User tempUser = new User(Integer.parseInt(String.valueOf(pinField.getPassword())), dob, phone, fnameField.getText(), lnameField.getText(), addressField.getText(), cityField.getText(), (String) stateField.getSelectedItem(), postalField.getText());
-			BankAccount tempAccount = new BankAccount('Y', manager.getMaxAccountNumber() + 1, 0.0, tempUser);
-			manager.addAccount(tempAccount); // TODO 
+				int dob = Integer.parseInt(strDob.substring(0, 2) + strDob.substring(3, 5) + strDob.substring(6, 10));
+				int phone = Integer.parseInt(strPhone.substring(1, 4) + strPhone.substring(6, 9) + strPhone.substring(10, 14));
+				User tempUser = new User(Integer.parseInt(String.valueOf(pinField.getPassword())), dob, phone, fnameField.getText(), lnameField.getText(), addressField.getText(), cityField.getText(), (String) stateField.getSelectedItem(), postalField.getText());
+				BankAccount tempAccount = new BankAccount('Y', manager.getMaxAccountNumber() + 1, 0.0, tempUser);
+				manager.addAccount(tempAccount);
+			}
+			catch (Exception f) {
+				errorMessage.setText("Invalid Info");
+
+			}
 		}
 	}
 
@@ -335,5 +346,7 @@ public class CreateView extends JPanel implements ActionListener {
 		stateField.setSelectedItem("Choose One");
 		postalField.setText("");
 		pinField.setText("");	// desired pin
+
+		errorMessage.setText("");
 	}
 }

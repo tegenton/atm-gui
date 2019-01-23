@@ -31,6 +31,7 @@ public class InformationView extends JPanel implements ActionListener {
 	private JButton editButton;
 	private JButton cancelButton;
 	private int updatedPin;
+	private JLabel errorMessage;
 
 	/**
 	 * Constructs an instance (or object) of the CreateView class.
@@ -75,6 +76,11 @@ public class InformationView extends JPanel implements ActionListener {
 		this.initPinField(); // desired pin
 		this.initEditButton(); // TODO: submit function
 		this.initCancelButton();
+
+		errorMessage = new JLabel("");
+		errorMessage.setBounds(200,50,100,50);
+		this.add(errorMessage);
+
 		clear();
 	}
 
@@ -299,11 +305,14 @@ public class InformationView extends JPanel implements ActionListener {
 				try {
 					saveInfo();
 					disableEditing();
+					clear();
+					updateInfo();
 				}
 				catch (Exception f) {
 					clear();
 					updateInfo();
 					enableEditing();
+					errorMessage.setText("Invalid info");
 				}
 			}
 			else {
@@ -350,6 +359,8 @@ public class InformationView extends JPanel implements ActionListener {
 		cityField.setText("");
 		stateField.setSelectedItem("Choose One");
 		postalField.setText("");
+
+		errorMessage.setText("");
 	}
 
 	public void updateInfo() {
