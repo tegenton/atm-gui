@@ -185,6 +185,9 @@ a button to logout*/
 		catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(null, "Invalid amount", "Invalid Amount", JOptionPane.ERROR_MESSAGE);
 		}
+		catch (NullPointerException e) {
+
+		}
 	}
 
 	private void withdraw() {
