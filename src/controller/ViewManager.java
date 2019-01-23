@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 
 import data.Database;
 import model.BankAccount;
+import model.User;
 import view.*;
 
 public class ViewManager {
@@ -149,6 +150,7 @@ public class ViewManager {
 				JOptionPane.QUESTION_MESSAGE
 			);
 		if (choice == JOptionPane.YES_OPTION) {
+			db.updateAccount(account);
 			db.closeAccount(account);
 			account = null;
 			this.switchTo(ATM.LOGIN_VIEW);
@@ -157,5 +159,10 @@ public class ViewManager {
 
 	public void editInfo() {
 		this.switchTo(ATM.INFO_VIEW);
+		((InformationView) views.getComponents()[ATM.INFO_VIEW_INDEX]).updateInfo();
+	}
+
+	public void setAccountUser(User temp) {
+		account.setUser(temp);
 	}
 }

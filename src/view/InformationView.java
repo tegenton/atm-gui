@@ -27,9 +27,10 @@ public class InformationView extends JPanel implements ActionListener {
 	private JTextField cityField;
 	private JComboBox<String> stateField;
 	private JTextField postalField;
-	private JPasswordField pinField;	// desired pin
+	private JButton changePin;	// desired pin
 	private JButton editButton;
 	private JButton cancelButton;
+	private int updatedPin;
 
 	/**
 	 * Constructs an instance (or object) of the CreateView class.
@@ -223,16 +224,16 @@ public class InformationView extends JPanel implements ActionListener {
 		JLabel label = new JLabel("PIN", SwingConstants.RIGHT);
 		label.setBounds(100, 415, 95, 35);
 
-		pinField = new JPasswordField();
-		pinField.setBounds(250, 415, 100, 35);
-		pinField.setEditable(false);
+		changePin = new JButton("Change");
+		changePin.setBounds(250, 415, 100, 35);
+		changePin.addActionListener(this);
 
 		this.add(label);
-		this.add(pinField);
+		this.add(changePin);
 	}
 
 	private void initEditButton() {
-		editButton = new JButton("Edit Information");
+		editButton = new JButton("Edit Info");
 		editButton.setBounds(200,5,100,50);
 		editButton.addActionListener(this);
 		this.add(editButton);
@@ -289,20 +290,55 @@ public class InformationView extends JPanel implements ActionListener {
 
 		if (source.equals(cancelButton)) {
 			clear();
+			updateInfo();
+			disableEditing();
 			manager.switchTo(ATM.HOME_VIEW);
 		}
 		else if (source.equals(editButton)) {
-			String strDob = dobPicker.getText();
-			String strPhone = phoneField.getText();
-
-			System.out.println(manager.getMaxAccountNumber());
-
-			int dob = Integer.parseInt(strDob.substring(0,2) + strDob.substring(3,5) + strDob.substring(6,10));
-			int phone = Integer.parseInt(strPhone.substring(1,4) + strPhone.substring(6,9) + strPhone.substring(10, 14));
-			User tempUser = new User(Integer.parseInt(String.valueOf(pinField.getPassword())), dob, phone, fnameField.getText(), lnameField.getText(), addressField.getText(), cityField.getText(), (String) stateField.getSelectedItem(), postalField.getText());
-			BankAccount tempAccount = new BankAccount('Y', manager.getMaxAccountNumber() + 1, 0.0, tempUser);
-			manager.addAccount(tempAccount); // TODO
+			if (editButton.getText().equals("Save")) {
+				try {
+					saveInfo();
+					disableEditing();
+				}
+				catch (Exception f) {
+					clear();
+					updateInfo();
+					enableEditing();
+				}
+			}
+			else {
+				enableEditing();
+			}
 		}
+		else if (source.equals(changePin)) {
+			int pinGuess = Integer.parseInt(JOptionPane.showInputDialog("What is your current PIN?"));
+			if (manager.getAccount().getUser().getPin() == pinGuess) {
+				updatedPin = Integer.parseInt(JOptionPane.showInputDialog("What is your new PIN?"));
+			}
+		}
+	}
+
+	private void enableEditing() {
+		editButton.setText("Save");
+
+		phoneField.setEditable(true);
+
+		addressField.setEditable(true);
+		cityField.setEditable(true);
+		stateField.setEditable(true);
+		postalField.setEditable(true);
+
+		updatedPin = manager.getAccount().getUser().getPin();
+	}
+
+	private void disableEditing() {
+		editButton.setText("Edit Info");
+
+		phoneField.setEditable(false);
+
+		addressField.setEditable(false);
+		cityField.setEditable(false);
+		postalField.setEditable(false);
 	}
 
 	private void clear() {
@@ -314,6 +350,36 @@ public class InformationView extends JPanel implements ActionListener {
 		cityField.setText("");
 		stateField.setSelectedItem("Choose One");
 		postalField.setText("");
-		pinField.setText("");	// desired pin
+	}
+
+	public void updateInfo() {
+		fnameField.setText(manager.getAccount().getUser().getFirstName());
+		lnameField.setText(manager.getAccount().getUser().getLastName());
+		dobPicker.setText(manager.getAccount().getUser().getFormattedDob()); // date of birth
+		phoneField.setText(manager.getAccount().getUser().getFormattedPhone());
+		addressField.setText(manager.getAccount().getUser().getStreetAddress());
+		cityField.setText(manager.getAccount().getUser().getCity());
+		stateField.setSelectedItem(manager.getAccount().getUser().getState());
+		postalField.setText(manager.getAccount().getUser().getZip());
+	}
+
+	public void saveInfo() {
+		User temp = manager.getAccount().getUser();
+
+		String strPhone = phoneField.getText();
+		Long phone = Long.parseLong(strPhone.substring(1,4) + strPhone.substring(6,9) + strPhone.substring(10, 14));
+
+		temp.setPhone(phone);
+
+		temp.setStreetAddress(addressField.getText());
+		temp.setCity(cityField.getText());
+		temp.setState(stateField.getSelectedItem().toString());
+		temp.setZip(postalField.getText());
+
+		if (temp.getPin() != updatedPin) {
+			temp.setPin(temp.getPin(), updatedPin);
+		}
+
+		manager.setAccountUser(temp);
 	}
 }
